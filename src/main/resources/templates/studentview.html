@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Index</title>
+</head>
+<body>
+    <form id="filterform">
+        <label for="filter">Filter By Last Name:</label>
+        <input type="text" id="filter" name="filter">
+        <input type="submit" id="submit" value="Filter">
+    </form><br>
+    <table>
+        <tr>
+            <td>Student Id</td>
+            <td>Last Name</td>
+            <td>First Name</td>
+            <td>Email Address</td>
+            <td>Phone Number</td>
+        </tr>
+        <tr th:each="student: ${students}">
+            <td th:text="${student.studentId}">Student ID</td>
+            <td th:text="${student.lastName}">Last Name</td>
+            <td th:text="${student.firstName}">First Number</td>
+            <td th:text="${student.emailAddress}">Email Address</td>
+            <td th:text="${student.phoneNumber}">Phone Number</td>
+        </tr>
+    </table>
+    <a href="http://172.27.0.139:8080">Back to Home</a>
+
+    <script>
+        const filterForm = document.getElementById("filterform");
+        filterForm.addEventListener("submit", function ( event ) {
+            event.preventDefault();
+            location.replace("http://172.27.0.139:8080/students?filter="+document.querySelector("#filter").value)
+        } );
+    </script>
+</body>
+</html>

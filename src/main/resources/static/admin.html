@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+    <body>
+        <h1>Admin Panel</h1><br>
+        <h2>Update Student Index</h2>
+        <form id="postform">
+            <label for="edit">Edit?</label>
+            <input type="checkbox" id="edit" name="edit"><br>
+            <label for="studentId">Id:</label>
+            <input type="number" id="studentId" name="studentId">
+            <div id="warning" style="display: none">
+                <br>
+                <p>Only fill the fields you want to update. Leave the rest blank.</p>
+            </div>
+            <div id="buffer">
+                <br><br>
+            </div>
+            <label for="fname">First name:</label>
+            <input type="text" id="fname" name="fname"><br><br>
+            <label for="lname">Last name:</label>
+            <input type="text" id="lname" name="lname"><br><br>
+            <label for="email">Email Address:</label>
+            <input type="email" id="email" name="email"><br><br>
+            <label for="address">Address:</label>
+            <input type="text" id="address" name="address"><br><br>
+            <label for="country">Country:</label>
+            <input type="text" id="country" name="country"><br><br>
+            <label for="state">State:</label>
+            <input type="text" id="state" name="state"><br><br>
+            <label for="phone">Phone Number:</label>
+            <input type="text" id="phone" name="phone"><br><br>
+            <input type="submit" id="submit" value="Add Student">
+        </form><br>
+
+        <h2>Delete Student</h2>
+        <form id="deleteform">
+            <label for="id">Student Id:</label>
+            <input type="number" id="id" name="id"><br><br>
+            <input type="submit" value="Delete Student">
+        </form>
+        <a href="http://172.27.0.139:8080">Back to Home</a>
+
+        <script>
+            document.querySelector("#warning").style.display = 'none'
+
+            const postStudent = async () => {
+                const response = await fetch('http://172.27.0.139:8080/api/admin', {
+                    method: 'POST',
+                    body: '{"firstName":"' + document.querySelector('#fname').value + '", ' +
+                        '"lastName":"' + document.querySelector('#lname').value + '", ' +
+                        '"emailAddress":"' + document.querySelector('#email').value + '", ' +
+                        '"address":"' + document.querySelector('#address').value + '", ' +
+                        '"country":"' + document.querySelector('#country').value + '", ' +
+                        '"state":"' + document.querySelector('#state').value + '", ' +
+                        '"phoneNumber":"' + document.querySelector('#phone').value + '"}', // string or object
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+                (response.ok) ? alert("Student Added") : alert("Failed to Add Student")
+            }
+            const patchStudent = async () => {
+                const response = await fetch('http://172.27.0.139:8080/api/admin', {
+                    method: 'PATCH',
+                    body: '{"studentId":"' + document.querySelector('#studentId').value + '", ' +
+                        '"firstName":"' + document.querySelector('#fname').value + '", ' +
+                        '"lastName":"' + document.querySelector('#lname').value + '", ' +
+                        '"emailAddress":"' + document.querySelector('#email').value + '", ' +
+                        '"address":"' + document.querySelector('#address').value + '", ' +
+                        '"country":"' + document.querySelector('#country').value + '", ' +
+                        '"state":"' + document.querySelector('#state').value + '", ' +
+                        '"phoneNumber":"' + document.querySelector('#phone').value + '"}', // string or object
+                    headers: {
+                        'Content-Type': 'text/plain'
+                    }
+                });
+                (response.ok) ? alert("Student Updated") : alert("Failed to Update Student")
+            }
+
+            const deleteStudent = async () => {
+                const response = await fetch('http://172.27.0.139:8080/api/admin', {
+                    method: 'DELETE',
+                    body: document.querySelector("#id").value, // string or object
+                    headers: {
+                        'Content-Type': 'text/plain'
+                    }
+                });
+                (response.ok) ? alert("Student Deleted") : alert("Failed to Delete Student")
+            }
+
+            const postForm = document.getElementById("postform");
+            const deleteForm = document.getElementById("deleteform");
+
+            postForm.addEventListener("submit", function ( event ) {
+                event.preventDefault();
+                if(document.querySelector("#edit").checked === true)
+                    patchStudent();
+                else
+                    postStudent()
+
+            } );
+
+            document.querySelector("#edit").addEventListener("change", function (event){
+                event.preventDefault();
+                if(document.querySelector("#edit").checked === true){
+                    document.querySelector("#submit").value = "Update Student"
+                    document.querySelector("#warning").style.display = 'initial'
+                    document.querySelector("#buffer").style.display = 'none'
+                }
+                else {
+                    document.querySelector("#submit").value = "Add Student";
+                    document.querySelector("#warning").style.display = 'none'
+                    document.querySelector("#buffer").style.display = 'initial'
+                }
+            });
+
+            deleteForm.addEventListener("submit", function ( event ) {
+                event.preventDefault();
+
+                deleteStudent();
+            } );
+
+        </script>
+    </body>
+</html>
