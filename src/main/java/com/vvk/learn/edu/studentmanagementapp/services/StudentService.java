@@ -38,48 +38,37 @@ public class StudentService {
     }
 
     public void addStudent(Student student){
-        if(student != null){
+        if(student != null)
             this.studentRepository.save(student);
-        }
-        else{
+        else
             throw new NullPointerException("Invalid student received");
-        }
     }
 
     public void deleteStudent(Long id){
-        if(id != null){
+        if(id != null)
             this.studentRepository.deleteById(id);
-        }
-        else{
+        else
             throw new NullPointerException("Invalid student received");
-        }
     }
 
     public void editStudent(String jsonString){
 
         JSONObject jsonObject = new JSONObject(jsonString);
         Student student = this.studentRepository.getReferenceById(Long.valueOf(jsonObject.getString("studentId")));
-        if (!jsonObject.getString("firstName").equals("")) {
+        if (!jsonObject.getString("firstName").equals(""))
             student.setFirstName(jsonObject.getString("firstName"));
-        }
-        if (!jsonObject.getString("lastName").equals("")) {
+        if (!jsonObject.getString("lastName").equals(""))
             student.setLastName(jsonObject.getString("lastName"));
-        }
-        if (!jsonObject.getString("emailAddress").equals("")) {
+        if (!jsonObject.getString("emailAddress").equals(""))
             student.setEmailAddress(jsonObject.getString("emailAddress"));
-        }
-        if (!jsonObject.getString("address").equals("")) {
+        if (!jsonObject.getString("address").equals(""))
             student.setAddress(jsonObject.getString("address"));
-        }
-        if (!jsonObject.getString("country").equals("")) {
+        if (!jsonObject.getString("country").equals(""))
             student.setCountry(jsonObject.getString("country"));
-        }
-        if (!jsonObject.getString("state").equals("")) {
+        if (!jsonObject.getString("state").equals(""))
             student.setState(jsonObject.getString("state"));
-        }
-        if (!jsonObject.getString("phoneNumber").equals("")) {
+        if (!jsonObject.getString("phoneNumber").equals(""))
             student.setPhoneNumber(jsonObject.getString("phoneNumber"));
-        }
         this.studentRepository.save(student);
     }
 

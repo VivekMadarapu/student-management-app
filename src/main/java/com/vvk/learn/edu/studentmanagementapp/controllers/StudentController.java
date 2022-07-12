@@ -22,10 +22,7 @@ public class StudentController {
     @GetMapping
     public String getStudents(@RequestParam(name = "filter", required = false) String lastName, Model model){
         List<Student> students;
-        if(lastName == null)
-            students = studentService.getAllStudents();
-        else
-            students = studentService.getStudentsByLastName(lastName);
+        students = (lastName == null) ? studentService.getAllStudents() : studentService.getStudentsByLastName(lastName);
         model.addAttribute("students", students);
         return "studentview";
     }

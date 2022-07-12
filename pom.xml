@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.vvk.learn.edu</groupId>
 	<artifactId>student-management-app</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.2-SNAPSHOT</version>
 	<name>student-management-app</name>
 	<description>Project to manage student details</description>
 	<properties>
