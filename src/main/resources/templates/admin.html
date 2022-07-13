@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" >
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -42,14 +42,15 @@
             <input type="number" id="id" name="id"><br><br>
             <input type="submit" value="Delete Student">
         </form>
-        <a href="http://172.27.0.139:8080">Back to Home</a>
+        <a href="https://172.27.0.139:8443">Back to Home</a>
 
         <script>
             document.querySelector("#warning").style.display = 'none'
 
             const postStudent = async () => {
-                const response = await fetch('http://172.27.0.139:8080/api/admin', {
+                const response = await fetch('https://172.27.0.139:8443/api/admin', {
                     method: 'POST',
+                    credentials: 'include',
                     body: '{"firstName":"' + document.querySelector('#fname').value + '", ' +
                         '"lastName":"' + document.querySelector('#lname').value + '", ' +
                         '"emailAddress":"' + document.querySelector('#email').value + '", ' +
@@ -64,8 +65,9 @@
                 (response.ok) ? alert("Student Added") : alert("Failed to Add Student")
             }
             const patchStudent = async () => {
-                const response = await fetch('http://172.27.0.139:8080/api/admin', {
+                const response = await fetch('https://172.27.0.139:8443/api/admin', {
                     method: 'PATCH',
+                    credentials: 'include',
                     body: '{"studentId":"' + document.querySelector('#studentId').value + '", ' +
                         '"firstName":"' + document.querySelector('#fname').value + '", ' +
                         '"lastName":"' + document.querySelector('#lname').value + '", ' +
@@ -82,8 +84,9 @@
             }
 
             const deleteStudent = async () => {
-                const response = await fetch('http://172.27.0.139:8080/api/admin', {
+                const response = await fetch('https://172.27.0.139:8443/api/admin', {
                     method: 'DELETE',
+                    credentials: 'include',
                     body: document.querySelector("#id").value, // string or object
                     headers: {
                         'Content-Type': 'text/plain'

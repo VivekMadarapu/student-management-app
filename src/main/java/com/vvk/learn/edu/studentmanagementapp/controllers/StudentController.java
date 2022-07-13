@@ -24,6 +24,6 @@ public class StudentController {
         List<Student> students;
         students = (lastName == null) ? studentService.getAllStudents() : studentService.getStudentsByLastName(lastName);
         model.addAttribute("students", students);
-        return "studentview";
+        return "student";
     }
 }

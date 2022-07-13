@@ -26,13 +26,13 @@
             <td th:text="${student.phoneNumber}">Phone Number</td>
         </tr>
     </table>
-    <a href="http://172.27.0.139:8080">Back to Home</a>
+    <a th:href='@{/}'>Back to Home</a>
 
-    <script>
+    <script th:inline="javascript">
         const filterForm = document.getElementById("filterform");
         filterForm.addEventListener("submit", function ( event ) {
             event.preventDefault();
-            location.replace("http://172.27.0.139:8080/students?filter="+document.querySelector("#filter").value)
+            location.replace("http://172.27.0.139:8443/students?filter="+document.querySelector("#filter").value)
         } );
     </script>
 </body>
