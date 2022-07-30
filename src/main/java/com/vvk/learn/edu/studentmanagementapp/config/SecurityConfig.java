@@ -19,7 +19,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.requiresChannel(channel -> channel.anyRequest().requiresSecure())
-                .authorizeHttpRequests().antMatchers("/api/admin").permitAll()
+                .authorizeHttpRequests().antMatchers("/api/*").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
@@ -31,7 +31,7 @@ public class SecurityConfig {
 
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
-        return (web) -> web.ignoring().antMatchers("/api/admin");
+        return (web) -> web.ignoring().antMatchers("/api/*");
     }
 
     @Autowired

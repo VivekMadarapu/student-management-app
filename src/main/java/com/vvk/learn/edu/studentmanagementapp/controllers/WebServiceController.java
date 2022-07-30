@@ -5,6 +5,8 @@ import com.vvk.learn.edu.studentmanagementapp.services.StudentService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api")
 public class WebServiceController {
@@ -13,6 +15,13 @@ public class WebServiceController {
 
     public WebServiceController(StudentService studentService) {
         this.studentService = studentService;
+    }
+
+    @GetMapping("/students")
+    public List<Student> getStudents(@RequestParam(name = "filter", required = false) String lastName) {
+        List<Student> students;
+        students = (lastName == null) ? studentService.getAllStudents() : studentService.getStudentsByLastName(lastName);
+        return students;
     }
 
     @PostMapping("/admin")
